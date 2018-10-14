@@ -1,14 +1,14 @@
 var Buffer = require('safe-buffer').Buffer
 var bech32 = require('bech32')
-var bs58check = require('bs58check')
+var bs58grscheck = require('bs58grscheck')
 var bscript = require('./script')
 var btemplates = require('./templates')
 var networks = require('./networks')
 var typeforce = require('typeforce')
 var types = require('./types')
 
-function fromBase58Check (address) {
-  var payload = bs58check.decode(address)
+function fromBase58GrsCheck (address) {
+  var payload = bs58grscheck.decode(address)
 
   // TODO: 4.0.0, move to "toOutputScript"
   if (payload.length < 21) throw new TypeError(address + ' is too short')
@@ -31,14 +31,14 @@ function fromBech32 (address) {
   }
 }
 
-function toBase58Check (hash, version) {
+function toBase58GrsCheck (hash, version) {
   typeforce(types.tuple(types.Hash160bit, types.UInt8), arguments)
 
   var payload = Buffer.allocUnsafe(21)
   payload.writeUInt8(version, 0)
   hash.copy(payload, 1)
 
-  return bs58check.encode(payload)
+  return bs58grscheck.encode(payload)
 }
 
 function toBech32 (data, version, prefix) {
@@ -51,8 +51,8 @@ function toBech32 (data, version, prefix) {
 function fromOutputScript (outputScript, network) {
   network = network || networks.bitcoin
 
-  if (btemplates.pubKeyHash.output.check(outputScript)) return toBase58Check(bscript.compile(outputScript).slice(3, 23), network.pubKeyHash)
-  if (btemplates.scriptHash.output.check(outputScript)) return toBase58Check(bscript.compile(outputScript).slice(2, 22), network.scriptHash)
+  if (btemplates.pubKeyHash.output.check(outputScript)) return toBase58GrsCheck(bscript.compile(outputScript).slice(3, 23), network.pubKeyHash)
+  if (btemplates.scriptHash.output.check(outputScript)) return toBase58GrsCheck(bscript.compile(outputScript).slice(2, 22), network.scriptHash)
   if (btemplates.witnessPubKeyHash.output.check(outputScript)) return toBech32(bscript.compile(outputScript).slice(2, 22), 0, network.bech32)
   if (btemplates.witnessScriptHash.output.check(outputScript)) return toBech32(bscript.compile(outputScript).slice(2, 34), 0, network.bech32)
 
@@ -64,7 +64,7 @@ function toOutputScript (address, network) {
 
   var decode
   try {
-    decode = fromBase58Check(address)
+    decode = fromBase58GrsCheck(address)
   } catch (e) {}
 
   if (decode) {
@@ -88,10 +88,10 @@ function toOutputScript (address, network) {
 }
 
 module.exports = {
-  fromBase58Check: fromBase58Check,
+  fromBase58GrsCheck: fromBase58GrsCheck,
   fromBech32: fromBech32,
   fromOutputScript: fromOutputScript,
-  toBase58Check: toBase58Check,
+  toBase58GrsCheck: toBase58GrsCheck,
   toBech32: toBech32,
   toOutputScript: toOutputScript
 }

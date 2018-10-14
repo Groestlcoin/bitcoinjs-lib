@@ -7,22 +7,22 @@ var bscript = require('../src/script')
 var fixtures = require('./fixtures/address.json')
 
 describe('address', function () {
-  describe('fromBase58Check', function () {
+  describe('fromBase58GrsCheck', function () {
     fixtures.standard.forEach(function (f) {
-      if (!f.base58check) return
+      if (!f.base58grscheck) return
 
-      it('decodes ' + f.base58check, function () {
-        var decode = baddress.fromBase58Check(f.base58check)
+      it('decodes ' + f.base58grscheck, function () {
+        var decode = baddress.fromBase58GrsCheck(f.base58grscheck)
 
         assert.strictEqual(decode.version, f.version)
         assert.strictEqual(decode.hash.toString('hex'), f.hash)
       })
     })
 
-    fixtures.invalid.fromBase58Check.forEach(function (f) {
+    fixtures.invalid.fromBase58GrsCheck.forEach(function (f) {
       it('throws on ' + f.exception, function () {
         assert.throws(function () {
-          baddress.fromBase58Check(f.address)
+          baddress.fromBase58GrsCheck(f.address)
         }, new RegExp(f.address + ' ' + f.exception))
       })
     })
@@ -56,7 +56,7 @@ describe('address', function () {
         var script = bscript.fromASM(f.script)
         var address = baddress.fromOutputScript(script, networks[f.network])
 
-        assert.strictEqual(address, f.base58check || f.bech32.toLowerCase())
+        assert.strictEqual(address, f.base58grscheck || f.bech32.toLowerCase())
       })
     })
 
@@ -71,14 +71,14 @@ describe('address', function () {
     })
   })
 
-  describe('toBase58Check', function () {
+  describe('toBase58GrsCheck', function () {
     fixtures.standard.forEach(function (f) {
-      if (!f.base58check) return
+      if (!f.base58grscheck) return
 
       it('encodes ' + f.hash + ' (' + f.network + ')', function () {
-        var address = baddress.toBase58Check(Buffer.from(f.hash, 'hex'), f.version)
+        var address = baddress.toBase58GrsCheck(Buffer.from(f.hash, 'hex'), f.version)
 
-        assert.strictEqual(address, f.base58check)
+        assert.strictEqual(address, f.base58grscheck)
       })
     })
   })
@@ -107,7 +107,7 @@ describe('address', function () {
   describe('toOutputScript', function () {
     fixtures.standard.forEach(function (f) {
       it('decodes ' + f.script.slice(0, 30) + '... (' + f.network + ')', function () {
-        var script = baddress.toOutputScript(f.base58check || f.bech32, networks[f.network])
+        var script = baddress.toOutputScript(f.base58grscheck || f.bech32, networks[f.network])
 
         assert.strictEqual(bscript.toASM(script), f.script)
       })

@@ -1,5 +1,5 @@
 var Buffer = require('safe-buffer').Buffer
-var base58check = require('bs58check')
+var base58grscheck = require('bs58grscheck')
 var bcrypto = require('./crypto')
 var createHmac = require('create-hmac')
 var typeforce = require('typeforce')
@@ -53,7 +53,7 @@ HDNode.fromSeedHex = function (hex, network) {
 }
 
 HDNode.fromBase58 = function (string, networks) {
-  var buffer = base58check.decode(string)
+  var buffer = base58grscheck.decode(string)
   if (buffer.length !== 78) throw new Error('Invalid buffer length')
 
   // 4 bytes: version bytes
@@ -199,7 +199,7 @@ HDNode.prototype.toBase58 = function (__isPrivate) {
     this.keyPair.getPublicKeyBuffer().copy(buffer, 45)
   }
 
-  return base58check.encode(buffer)
+  return base58grscheck.encode(buffer)
 }
 
 // https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#child-key-derivation-ckd-functions

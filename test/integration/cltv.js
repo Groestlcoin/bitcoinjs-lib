@@ -8,7 +8,7 @@ var testnet = bitcoin.networks.testnet
 var alice = bitcoin.ECPair.fromWIF('cScfkGjbzzoeewVWmU2hYPUHeVGJRDdFt7WhmrVVGkxpmPP8BHWe', testnet)
 var bob = bitcoin.ECPair.fromWIF('cMkopUXKWsEzAjfa1zApksGRwjVpJRB3831qM9W4gKZsLwjHXA9x', testnet)
 
-describe('bitcoinjs-lib (transactions w/ CLTV)', function () {
+describe('groestlcoinjs-lib (transactions w/ CLTV)', function () {
   var hashType = bitcoin.Transaction.SIGHASH_ALL
 
   // IF MTP > utcSeconds, aQ can redeem, ELSE bQ, aQ joint redeem

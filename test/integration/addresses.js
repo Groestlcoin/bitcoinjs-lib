@@ -8,7 +8,7 @@ var dhttp = require('dhttp/200')
 // deterministic RNG for testing only
 function rng () { return Buffer.from('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz') }
 
-describe('bitcoinjs-lib (addresses)', function () {
+describe('groestlcoinjs-lib (addresses)', function () {
   it('can generate a random address', function () {
     var keyPair = bitcoin.ECPair.makeRandom({ rng: rng })
     var address = keyPair.getAddress()
