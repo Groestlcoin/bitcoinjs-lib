@@ -1,12 +1,12 @@
 var Buffer = require('safe-buffer').Buffer
-var bs58check = require('bs58check')
+var bs58grscheck = require('bs58grscheck')
 var bscript = require('./script')
 var networks = require('./networks')
 var typeforce = require('typeforce')
 var types = require('./types')
 
-function fromBase58Check (address) {
-  var payload = bs58check.decode(address)
+function fromBase58GrsCheck (address) {
+  var payload = bs58grscheck.decode(address)
   if (payload.length < 21) throw new TypeError(address + ' is too short')
   if (payload.length > 21) throw new TypeError(address + ' is too long')
 
@@ -16,21 +16,21 @@ function fromBase58Check (address) {
   return { hash: hash, version: version }
 }
 
-function toBase58Check (hash, version) {
+function toBase58GrsCheck (hash, version) {
   typeforce(types.tuple(types.Hash160bit, types.UInt8), arguments)
 
   var payload = Buffer.allocUnsafe(21)
   payload.writeUInt8(version, 0)
   hash.copy(payload, 1)
 
-  return bs58check.encode(payload)
+  return bs58grscheck.encode(payload)
 }
 
 function fromOutputScript (outputScript, network) {
   network = network || networks.bitcoin
 
-  if (bscript.pubKeyHash.output.check(outputScript)) return toBase58Check(bscript.compile(outputScript).slice(3, 23), network.pubKeyHash)
-  if (bscript.scriptHash.output.check(outputScript)) return toBase58Check(bscript.compile(outputScript).slice(2, 22), network.scriptHash)
+  if (bscript.pubKeyHash.output.check(outputScript)) return toBase58GrsCheck(bscript.compile(outputScript).slice(3, 23), network.pubKeyHash)
+  if (bscript.scriptHash.output.check(outputScript)) return toBase58GrsCheck(bscript.compile(outputScript).slice(2, 22), network.scriptHash)
 
   throw new Error(bscript.toASM(outputScript) + ' has no matching Address')
 }
@@ -38,7 +38,7 @@ function fromOutputScript (outputScript, network) {
 function toOutputScript (address, network) {
   network = network || networks.bitcoin
 
-  var decode = fromBase58Check(address)
+  var decode = fromBase58GrsCheck(address)
   if (decode.version === network.pubKeyHash) return bscript.pubKeyHash.output.encode(decode.hash)
   if (decode.version === network.scriptHash) return bscript.scriptHash.output.encode(decode.hash)
 
@@ -46,8 +46,8 @@ function toOutputScript (address, network) {
 }
 
 module.exports = {
-  fromBase58Check: fromBase58Check,
+  fromBase58GrsCheck: fromBase58GrsCheck,
   fromOutputScript: fromOutputScript,
-  toBase58Check: toBase58Check,
+  toBase58GrsCheck: toBase58GrsCheck,
   toOutputScript: toOutputScript
 }

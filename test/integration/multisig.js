@@ -5,7 +5,7 @@ var assert = require('assert')
 var bitcoin = require('../../')
 var blockchain = require('./_blockchain')
 
-describe('bitcoinjs-lib (multisig)', function () {
+describe('groestlcoinjs-lib (multisig)', function () {
   it('can create a 2-of-3 multisig P2SH address', function () {
     var pubKeys = [
       '026477115981fe981a6918a6297d9803c4dc04f328f22041bedff886bbc2962e01',

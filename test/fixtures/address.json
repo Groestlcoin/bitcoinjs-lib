@@ -44,7 +44,7 @@
     }
   ],
   "invalid": {
-    "fromBase58Check": [
+    "fromBase58GrsCheck": [
       {
         "address": "7SeEnXWPaCCALbVrTnszCVGfRU8cGfx",
         "exception": "is too short"
@@ -76,4 +76,3 @@
     ]
   }
 }
-

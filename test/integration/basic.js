@@ -5,7 +5,7 @@ var bigi = require('bigi')
 var bitcoin = require('../../')
 var blockchain = require('./_blockchain')
 
-describe('bitcoinjs-lib (basic)', function () {
+describe('groestlcoinjs-lib (basic)', function () {
   it('can generate a random bitcoin address', function () {
     // for testing only
     function rng () { return Buffer.from('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz') }

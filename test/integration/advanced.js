@@ -3,7 +3,7 @@
 var bitcoin = require('../../')
 var blockchain = require('./_blockchain')
 
-describe('bitcoinjs-lib (advanced)', function () {
+describe('groestlcoinjs-lib (advanced)', function () {
   it('can create an OP_RETURN transaction', function (done) {
     this.timeout(30000)
 
@@ -15,7 +15,7 @@ describe('bitcoinjs-lib (advanced)', function () {
       if (err) return done(err)
 
       var tx = new bitcoin.TransactionBuilder(network)
-      var data = Buffer.from('bitcoinjs-lib')
+      var data = Buffer.from('groestlcoinjs-lib')
       var dataScript = bitcoin.script.nullData.output.encode(data)
 
       tx.addInput(unspent.txId, unspent.vout)

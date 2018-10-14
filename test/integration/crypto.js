@@ -9,7 +9,7 @@ var blockchain = require('./_blockchain')
 var ecurve = require('ecurve')
 var secp256k1 = ecurve.getCurveByName('secp256k1')
 
-describe('bitcoinjs-lib (crypto)', function () {
+describe('groestlcoinjs-lib (crypto)', function () {
   it('can recover a private key from duplicate R values', function (done) {
     this.timeout(30000)
 

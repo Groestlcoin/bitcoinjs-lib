@@ -8,7 +8,7 @@ var network = bitcoin.networks.testnet
 var alice = bitcoin.ECPair.fromWIF('cScfkGjbzzoeewVWmU2hYPUHeVGJRDdFt7WhmrVVGkxpmPP8BHWe', network)
 var bob = bitcoin.ECPair.fromWIF('cMkopUXKWsEzAjfa1zApksGRwjVpJRB3831qM9W4gKZsLwjHXA9x', network)
 
-describe('bitcoinjs-lib (CLTV)', function () {
+describe('groestlcoinjs-lib (CLTV)', function () {
   var hashType = bitcoin.Transaction.SIGHASH_ALL
 
   function cltvCheckSigOutput (aQ, bQ, utcSeconds) {
