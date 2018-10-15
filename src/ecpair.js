@@ -4,7 +4,7 @@ var ecdsa = require('./ecdsa')
 var randomBytes = require('randombytes')
 var typeforce = require('typeforce')
 var types = require('./types')
-var wif = require('wif')
+var wif = require('wifgrs')
 
 var NETWORKS = require('./networks')
 var BigInteger = require('bigi')
